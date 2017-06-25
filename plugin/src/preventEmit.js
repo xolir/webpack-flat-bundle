@@ -9,7 +9,7 @@ const PreventEmitAssetPlugin = function (filePattern) {
 }
 
 const checkFilePatternMatch = (pattern, filePath) => (
-  Object.values(pattern).find(filePattern => path.join(__dirname, filePattern) === filePath) || false
+  Object.values(pattern).find(filePattern => filePattern === filePath || false)
 )
 
 PreventEmitAssetPlugin.prototype.apply = function (compiler) {
@@ -17,12 +17,12 @@ PreventEmitAssetPlugin.prototype.apply = function (compiler) {
     compilation.plugin('chunk-asset', (chunk, filename) => {
       if (
         filename !== constants.extractTextSignature &&
-        checkFilePatternMatch(this.filePattern, chunk.entryModule.resource)
+        checkFilePatternMatch(this.filePattern, chunk.entryModule.rawRequest)
       ) {
         delete compilation.assets[filename]
       }
+    });
   });
-});
 };
 
 module.exports = PreventEmitAssetPlugin;

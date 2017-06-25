@@ -1,25 +1,14 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const glob = require('glob');
 const path = require('path');
 const SassPlugin = require('sass-webpack-plugin');
-const plugin = require('./preventEmit.js');
+const { globEntries, preventEmitPlugin } = require('webpack-flat-bundle');
 
 const entryPatterns = {
   js: './js/src/*.js',
   sass: './sass/*.scss',
 };
 
-const generateEntries = (entryPattern) => {
-  let entryObject = {};
-  entryPattern.map(pattern => {
-    glob.sync(pattern).map(file => {
-        entryObject[file.split('/').pop().split('.')[0]] = file;
-  })})
-
-  return entryObject;
-}
-
-const entries = generateEntries([entryPatterns.js, entryPatterns.sass]);
+const entries = globEntries([entryPatterns.js, entryPatterns.sass]);
 
 module.exports = {
   entry: entries,
@@ -46,7 +35,7 @@ module.exports = {
     ],
   },
   plugins: [
-    new plugin(generateEntries([entryPatterns.sass])),
+    new preventEmitPlugin(globEntries([entryPatterns.sass])),
     new ExtractTextPlugin("css/[name].css"),
   ]
 }
