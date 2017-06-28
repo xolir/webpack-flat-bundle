@@ -22,8 +22,8 @@ module.exports = {
       test: /\.scss$/,
       use: ExtractTextPlugin.extract({
         use:
-        [
-          "css-loader",
+          [
+            "css-loader",
             "sass-loader"
           ]
       })

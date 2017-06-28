@@ -1,11 +1,29 @@
 {
   "name": "webpack-flat-bundle",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.0.1",
+  "description": "Plugin and utility function that enables you to make use of webpack for flat ouput multi entry processing",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": ""
   },
-  "author": "",
-  "license": "ISC"
+  "author": "Mikołaj Kozakiewicz",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xolir/webpack-flat-bundle.git"
+  },
+  "keywords": [
+    "webpack",
+    "multi",
+    "glob",
+    "entry",
+    "flat",
+    "output"
+  ],
+  "bugs": {
+    "url": "https://github.com/xolir/webpack-flat-bundle/issues"
+  },
+  "homepage": "https://github.com/xolir/webpack-flat-bundle#readme"
 }
