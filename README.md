@@ -16,11 +16,17 @@ npm install webpack-flat-bundle
 import { globEntries, preventEmitPlugin } from 'webpack-flat-bundle'
 ```
 
+##### Add following to your config
 ```
-  entries: globEntries(['./js/src/*.js', './sass/*.scss']);
+{
+  entries: globEntries(['./js/src/*.js', './sass/*.scss'])
+  ...
+}
 ```  
 
 ```
+{
+  ...
   plugins: [
     new preventEmitPlugin(globEntries(['./sass/*.scss']))
     ...
