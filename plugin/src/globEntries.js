@@ -2,12 +2,12 @@ const glob = require('glob');
 const path = require('path');
 
 // Convert it to .reduce pattern
-module.exports = (entryPattern) => {
-  let entryObject = {};
-  entryPattern.map(pattern => {
-    glob.sync(pattern).map(file => {
-        entryObject[file.split('/').pop().split('.')[0]] = file;
-  })})
+const fileNameSplitter = file => file.split('/').pop().split('.')[0]
 
-  return entryObject;
-}
+module.exports = (entryPattern) =>
+  entryPattern.reduce((outputAccumulator, pattern) => {
+    return Object.assign(outputAccumulator, glob.sync(pattern).reduce((accumulator, file) => {
+        accumulator[fileNameSplitter(file)] = file;
+        return accumulator;
+    }, {}))
+  }, {})
