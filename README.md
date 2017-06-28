@@ -20,16 +20,13 @@ import { globEntries, preventEmitPlugin } from 'webpack-flat-bundle'
 ```
 {
   entries: globEntries(['./js/src/*.js', './sass/*.scss'])
-  ...
 }
 ```  
 
 ```
 {
-  ...
   plugins: [
     new preventEmitPlugin(globEntries(['./sass/*.scss']))
-    ...
   ]
 }
 ```
