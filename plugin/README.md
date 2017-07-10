@@ -31,6 +31,18 @@ How it works?
 
 * Helper method construct webpack entry object out of files that are matched by glob pattern.
 
+By default this search tree and construct output directly from file names.
+If you want to make nested output tree you can override this behaviour by adding parameter to config object.
+
+```
+{
+  entries: globEntries(['./js/src/*.js', './sass/*.scss'], { nestingLevel: 2 })
+}
+```
+
+This will result in nested output tree.
+
+
 ```
 {
   plugins: [
@@ -42,3 +54,17 @@ How it works?
 How it works?
 
 * Default behaviour of webpack is to make one output point from one entry point, but in case of CSS this is not welcomed, as plugins such as ExtractTextPlugin will make another output point leaving initial entry with empty file. This behavior is being overriden by preventEmitPlugin that will stop webpack from emitting files that match given glob pattern.
+
+
+### Additional Configuration
+
+By default globEntires search input tree and construct outputs directly from file names.
+If you want to make nested output tree you can override this behaviour by adding parameter to config object.
+
+```
+{
+  entries: globEntries(['./js/src/*.js', './sass/*.scss'], { nestingLevel: 2 })
+}
+```
+
+This will make output paths consist of file name and folder in which each file in placed.
