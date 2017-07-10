@@ -1,9 +1,7 @@
-const path = require('path');
-
 // Add caching mechanism
 
 const constants = {
-  extractTextSignature: 'extract-text-webpack-plugin-output-filename'
+  extractTextSignature: 'extract-text-webpack-plugin-output-filename',
 };
 
 class PreventEmitPlugin {
@@ -16,13 +14,12 @@ class PreventEmitPlugin {
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('chunk-asset', (chunk, fileName) => {
         if (this.cachedNames.includes(fileName)) {
-          delete compilation.assets[fileName]
-        }
-        else if (
+          delete compilation.assets[fileName];
+        } else if (
           fileName !== constants.extractTextSignature &&
           this.checkFilePatternMatch(chunk.entryModule.rawRequest)
         ) {
-          delete compilation.assets[fileName]
+          delete compilation.assets[fileName];
           this.addToCache(fileName);
         }
       });
@@ -34,7 +31,7 @@ class PreventEmitPlugin {
   }
 
   checkFilePatternMatch(fileRequest) {
-    return Object.values(this.filePatterns).find(pattern => pattern === fileRequest || false)
+    return Object.values(this.filePatterns).find(pattern => pattern === fileRequest || false);
   }
 }
 
