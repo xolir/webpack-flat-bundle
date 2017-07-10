@@ -4,7 +4,7 @@ const SassPlugin = require('sass-webpack-plugin');
 const { globEntries, preventEmitPlugin } = require('webpack-flat-bundle');
 
 const entryPatterns = {
-  js: './js/src/*.js',
+  js: './js/src/**/*.js',
   sass: './sass/*.scss',
 };
 

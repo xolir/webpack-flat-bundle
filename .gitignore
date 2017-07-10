@@ -1,3 +1,7 @@
+// Folders
 node_modules
-npm-debug.log
 dist
+
+// Files
+.idea
+npm-debug.log

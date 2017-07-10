@@ -1,7 +1,7 @@
 {
   "name": "webpack-flat-bundle",
-  "version": "0.0.1",
-  "description": "Plugin and utility function that enables you to make use of webpack for flat ouput multi entry processing",
+  "version": "0.0.2",
+  "description": "Plugin and utility function that enables you to make use of webpack for flat output multi entry processing",
   "main": "index.js",
   "scripts": {
     "test": ""

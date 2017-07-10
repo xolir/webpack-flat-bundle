@@ -4,7 +4,7 @@ const path = require('path');
 
 const constants = {
   extractTextSignature: 'extract-text-webpack-plugin-output-filename'
-}
+};
 
 class PreventEmitPlugin {
   constructor(filePatterns) {
