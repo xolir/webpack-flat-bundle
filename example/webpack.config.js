@@ -1,14 +1,24 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
-const SassPlugin = require('sass-webpack-plugin');
 const { globEntries, preventEmitPlugin } = require('webpack-flat-bundle');
+const webpack = require('webpack');
 
 const entryPatterns = {
   js: './js/src/**/*.js',
   sass: './sass/*.scss',
 };
 
-const entries = globEntries([entryPatterns.js, entryPatterns.sass]);
+const entries = Object.assign(
+  { vendor: ['react', 'angular']},
+  globEntries(
+    [entryPatterns.js],
+    { relativeRoot: './js/src' }
+  ),
+  globEntries(
+    [entryPatterns.sass],
+    { relativeRoot: './sass/' }
+  )
+);
 
 module.exports = {
   entry: entries,
@@ -18,24 +28,21 @@ module.exports = {
   },
   module: {
     rules: [
-    {
-      test: /\.scss$/,
-      use: ExtractTextPlugin.extract({
-        use:
-          [
-            "css-loader",
-            "sass-loader"
-          ]
-      })
-    },
-    {
-      test: /\.js$/,
-      use: 'babel-loader'
-    }
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          use:
+            [
+              "css-loader",
+              "sass-loader"
+            ]
+        })
+      },
     ],
   },
   plugins: [
-    new preventEmitPlugin(globEntries([entryPatterns.sass])),
+    new preventEmitPlugin(globEntries([entryPatterns.sass], { relativeRoot: './sass/' })),
     new ExtractTextPlugin("css/[name].css"),
+    new webpack.optimize.CommonsChunkPlugin({ name: "vendor" })
   ]
 }

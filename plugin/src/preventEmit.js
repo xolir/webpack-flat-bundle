@@ -1,5 +1,3 @@
-// Add caching mechanism
-
 const constants = {
   extractTextSignature: 'extract-text-webpack-plugin-output-filename',
 };
@@ -9,7 +7,6 @@ class PreventEmitPlugin {
     this.filePatterns = filePatterns;
     this.cachedNames = [];
   }
-
   apply(compiler) {
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('chunk-asset', (chunk, fileName) => {

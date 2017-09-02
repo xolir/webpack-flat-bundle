@@ -18,35 +18,26 @@ npm install webpack-flat-bundle
 
 ##### Import plugin and helper method.
 ```
-import { globEntries, preventEmitPlugin } from 'webpack-flat-bundle'
+const { globEntries, preventEmitPlugin } = require('webpack-flat-bundle');
+
 ```
 
 ##### Add following to your config
 ```
 {
-  entries: globEntries(['./js/src/*.js', './sass/*.scss'])
+  entries: globEntries(['./js/src/*.js'], { relativeRoot: './js/src' })
 }
 ```  
 How it works?
 
 * Helper method construct webpack entry object out of files that are matched by glob pattern.
 
-By default this search tree and construct output directly from file names.
-If you want to make nested output tree you can override this behaviour by adding parameter to config object.
-
-```
-{
-  entries: globEntries(['./js/src/*.js', './sass/*.scss'], { nestingLevel: 2 })
-}
-```
-
-This will result in nested output tree.
-
+By default this search tree and construct nested output tree, matching pattern provided.
 
 ```
 {
   plugins: [
-    new preventEmitPlugin(globEntries(['./sass/*.scss']))
+    new preventEmitPlugin(globEntries(['./sass/*.scss'], { relativeRoot: './sass/'}))
   ]
 }
 ```
@@ -54,17 +45,3 @@ This will result in nested output tree.
 How it works?
 
 * Default behaviour of webpack is to make one output point from one entry point, but in case of CSS this is not welcomed, as plugins such as ExtractTextPlugin will make another output point leaving initial entry with empty file. This behavior is being overriden by preventEmitPlugin that will stop webpack from emitting files that match given glob pattern.
-
-
-### Additional Configuration
-
-By default globEntires search input tree and construct outputs directly from file names.
-If you want to make nested output tree you can override this behaviour by adding parameter to config object.
-
-```
-{
-  entries: globEntries(['./js/src/*.js', './sass/*.scss'], { nestingLevel: 2 })
-}
-```
-
-This will make output paths consist of file name and folder in which each file in placed.

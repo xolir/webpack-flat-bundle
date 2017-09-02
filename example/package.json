@@ -4,7 +4,8 @@
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack"
+    "start": "webpack",
+    "debug": "node --inspect --debug-brk ./node_modules/webpack/bin/webpack.js"
   },
   "author": "Mikołaj Kozakiewicz",
   "license": "MIT",
@@ -16,5 +17,10 @@
     "node-sass": "^4.5.3",
     "sass-loader": "^6.0.6",
     "webpack": "^2.6.1"
+  },
+  "dependencies": {
+    "angular": "^1.6.5",
+    "react": "^15.6.1",
+    "webpack-flat-bundle": "0.0.4"
   }
 }
