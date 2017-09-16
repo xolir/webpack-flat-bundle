@@ -1,6 +1,7 @@
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const path = require('path');
-const { globEntries, preventEmitPlugin } = require('webpack-flat-bundle');
+const { globEntries, preventEmitPlugin } = require('../plugin/index');
+const moduleSerializer = require('../plugin/src/moduleSerializer');
 const webpack = require('webpack');
 
 const entryPatterns = {
@@ -8,11 +9,15 @@ const entryPatterns = {
   sass: './sass/*.scss',
 };
 
+const rootPaths = {
+  js: './js/src'
+};
+
 const entries = Object.assign(
   { vendor: ['react', 'angular']},
   globEntries(
     [entryPatterns.js],
-    { relativeRoot: './js/src' }
+    { relativeRoot: rootPaths.js }
   ),
   globEntries(
     [entryPatterns.sass],
@@ -41,8 +46,12 @@ module.exports = {
     ],
   },
   plugins: [
-    new preventEmitPlugin(globEntries([entryPatterns.sass], { relativeRoot: './sass/' })),
+    new preventEmitPlugin(globEntries([entryPatterns.sass])),
     new ExtractTextPlugin("css/[name].css"),
-    new webpack.optimize.CommonsChunkPlugin({ name: "vendor" })
+    new moduleSerializer([
+      { extension: 'js', outputFile: './dist/js/js.txt'},
+      { extension: 'css', outputFile: './dist/css/css.txt'}
+    ]),
+    new webpack.optimize.CommonsChunkPlugin({ name: "vendor" }),
   ]
 }
