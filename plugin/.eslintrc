@@ -7,5 +7,10 @@
     "import/core-modules": [
       "glob"
     ]
+  },
+  "globals": {
+    "describe": false,
+    "it": false,
+    "expect": false
   }
 }

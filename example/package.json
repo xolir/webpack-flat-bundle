@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "webpack",
-    "debug": "node --inspect --debug-brk ./node_modules/webpack/bin/webpack.js"
+    "debug": "node --inspect-brk ./node_modules/webpack/bin/webpack.js"
   },
   "author": "Mikołaj Kozakiewicz",
   "license": "MIT",

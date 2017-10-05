@@ -4,14 +4,18 @@
   "description": "Plugin and utility function that enables you to make use of webpack for flat output multi entry processing",
   "main": "index.js",
   "scripts": {
-    "test": "",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "lint": "eslint src/**.js",
     "debug": "node --inspect --debug-brk test.js"
   },
   "author": "Mikołaj Kozakiewicz",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
+    "jest": "^21.1.0",
+    "flow": "^0.2.3",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^11.2.0",
     "eslint-plugin-import": "^2.7.0"

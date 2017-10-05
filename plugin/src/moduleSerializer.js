@@ -23,22 +23,24 @@ class moduleSerializer {
     compiler.plugin('emit', (compilation, callback) => {
       const assetsMap = splitAssetsByExtension(Object.keys(compilation.assets));
 
-      Object.keys(assetsMap).map(assetKey => {
+      Object.keys(assetsMap).map((assetKey) => {
         const fileName = findByExtension(this.fileMap, assetKey).outputFile;
         const outputNames = assetsMap[assetKey];
 
         fs.readFile(path.resolve(fileName), 'utf8', (error, file) => {
           const output = outputNames
-            .filter(fileName => !file.split('\n').includes(fileName))
-            .reduce((accumulator, file) => accumulator.concat(`\n${file}`), '');
+            .filter(outputName => !file.split('\n').includes(outputName))
+            .reduce((accumulator, outputName) => accumulator.concat(`\n${outputName}`), '');
 
           fs.writeFile(path.resolve(fileName), file.concat(output));
-        })
+        });
       });
 
-      callback()
+      callback();
     });
   }
 }
 
 module.exports = moduleSerializer;
+module.exports.splitAssetsByExtension = splitAssetsByExtension;
+module.exports.findByExtension = findByExtension;

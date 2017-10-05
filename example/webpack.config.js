@@ -27,6 +27,7 @@ const entries = Object.assign(
 
 module.exports = {
   entry: entries,
+  devtool: 'sourcemap',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'js/[name].js'
@@ -48,10 +49,11 @@ module.exports = {
   plugins: [
     new preventEmitPlugin(globEntries([entryPatterns.sass])),
     new ExtractTextPlugin("css/[name].css"),
-    new moduleSerializer([
-      { extension: 'js', outputFile: './dist/js/js.txt'},
-      { extension: 'css', outputFile: './dist/css/css.txt'}
-    ]),
+    // new moduleSerializer([
+    //   { extension: 'js', outputFile: './dist/js/js.txt'},
+    //   { extension: 'css', outputFile: './dist/css/css.txt'}
+    // ]),
     new webpack.optimize.CommonsChunkPlugin({ name: "vendor" }),
   ]
 }
+
