@@ -7,6 +7,7 @@ class PreventEmitPlugin {
     this.filePatterns = filePatterns;
     this.cachedNames = [];
   }
+
   apply(compiler) {
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('chunk-asset', (chunk, fileName) => {
@@ -16,9 +17,14 @@ class PreventEmitPlugin {
           fileName !== constants.extractTextSignature &&
           this.checkFilePatternMatch(chunk.entryModule.rawRequest)
         ) {
-          delete compilation.assets[fileName];
           this.addToCache(fileName);
         }
+      });
+      compilation.plugin('after-optimize-assets', assets => {
+        this.cachedNames.map((fileName) => {
+          delete compilation.assets[fileName];
+          delete compilation.assets[`${fileName}.map`];
+        });
       });
     });
   }
@@ -28,7 +34,7 @@ class PreventEmitPlugin {
   }
 
   checkFilePatternMatch(fileRequest) {
-    return Object.values(this.filePatterns).find(pattern => pattern === fileRequest || false);
+    return Object.values(this.filePatterns).find(pattern => pattern===fileRequest || false);
   }
 }
 

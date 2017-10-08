@@ -8,10 +8,10 @@ const fileNameGenerator = (file, relativeRoot) =>
     .split('.')
     .shift();
 
-module.exports = (
+const globEntries = (
   entryPattern,
   config = {
-    relativeRoot: false
+    relativeRoot: process.cwd()
   }
 ) =>
   entryPattern.reduce((outputAccumulator, pattern) =>
@@ -20,3 +20,5 @@ module.exports = (
         return accumulator;
       }, {}))
     , {});
+
+module.exports = globEntries;
