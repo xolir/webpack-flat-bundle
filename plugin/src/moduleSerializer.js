@@ -1,10 +1,13 @@
 const path = require('path');
 const fs = require('fs');
 
-const splitAssetsByExtension = (assets) => (
+const splitAssetsByExtension = assets => (
   assets.reduce((accumulator, asset) => {
     const fileExtension = asset.split('.')[1];
-    accumulator[fileExtension] ? accumulator[fileExtension].push(asset) : accumulator[fileExtension] = [asset];
+
+    accumulator[fileExtension] ?
+      accumulator[fileExtension].push(asset) :
+      accumulator[fileExtension] = [asset];
 
     return accumulator;
   }, {})

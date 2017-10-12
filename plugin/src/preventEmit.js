@@ -20,10 +20,11 @@ class PreventEmitPlugin {
           this.addToCache(fileName);
         }
       });
-      compilation.plugin('after-optimize-assets', assets => {
+      compilation.plugin('after-optimize-assets', () => {
         this.cachedNames.map((fileName) => {
           delete compilation.assets[fileName];
           delete compilation.assets[`${fileName}.map`];
+          return compilation;
         });
       });
     });
@@ -34,7 +35,7 @@ class PreventEmitPlugin {
   }
 
   checkFilePatternMatch(fileRequest) {
-    return Object.values(this.filePatterns).find(pattern => pattern===fileRequest || false);
+    return Object.values(this.filePatterns).find(pattern => pattern === fileRequest || false);
   }
 }
 
