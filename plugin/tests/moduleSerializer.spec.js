@@ -33,11 +33,11 @@ describe('moduleSerializer', () => {
 
     const result = splitAssetsByExtension(mockArray);
 
-    it('returns correct key lengths', () => {
+    it('returns correct extension split length', () => {
       expect(Object.keys(result).length).toEqual(2);
     });
 
-    it('returns correctly set properties', () => {
+    it('returns correct number of properties with given type', () => {
       expect(result.js.length).toEqual(2);
       expect(result.css.length).toEqual(2);
     });

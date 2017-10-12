@@ -11,6 +11,7 @@
   "globals": {
     "describe": false,
     "it": false,
-    "expect": false
+    "expect": false,
+    "jest": false,
   }
 }

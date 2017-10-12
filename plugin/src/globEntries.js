@@ -11,8 +11,8 @@ const fileNameGenerator = (file, relativeRoot) =>
 const globEntries = (
   entryPattern,
   config = {
-    relativeRoot: process.cwd()
-  }
+    relativeRoot: process.cwd(),
+  },
 ) =>
   entryPattern.reduce((outputAccumulator, pattern) =>
       Object.assign(outputAccumulator, glob.sync(pattern).reduce((accumulator, file) => {
@@ -22,3 +22,4 @@ const globEntries = (
     , {});
 
 module.exports = globEntries;
+module.exports.fileNameGenerator = fileNameGenerator;
