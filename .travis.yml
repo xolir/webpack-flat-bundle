@@ -1,7 +1,8 @@
 install:
   - cd plugin
   - npm install
+  - npm install -g codecov
 
 script:
-  - cd plugin
   - npm run test
+  - codecov
