@@ -1,5 +1,8 @@
 ## Webpack flat bundle
 
+[![npm version](https://badge.fury.io/js/webpack-flat-bundle.svg)](https://badge.fury.io/js/webpack-flat-bundle)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ### Idea
 Webpack being developed for SPA / application bundles is missing easy method to use it for big projects that are composed of multiple unrelated applications. Although you can use glob entries out of the box, you cannot create multiple output bundles using this pattern.
 
