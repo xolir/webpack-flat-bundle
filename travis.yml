@@ -1,0 +1,7 @@
+install:
+  - cd plugin
+  - npm install
+
+script:
+  - cd plugin
+  - npm run test
