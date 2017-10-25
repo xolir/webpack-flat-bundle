@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const splitAssetsByExtension = assets => (
   assets.reduce((accumulator, asset) => {
-    const fileExtension = asset.split('.')[1];
+    const fileExtension = asset.split('.').pop();
 
     accumulator[fileExtension] ?
       accumulator[fileExtension].push(asset) :
@@ -27,16 +27,20 @@ class moduleSerializer {
       const assetsMap = splitAssetsByExtension(Object.keys(compilation.assets));
 
       Object.keys(assetsMap).map((assetKey) => {
-        const fileName = findByExtension(this.fileMap, assetKey).outputFile;
-        const outputNames = assetsMap[assetKey];
+        const fileMapByKey = findByExtension(this.fileMap, assetKey);
 
-        fs.readFile(path.resolve(fileName), 'utf8', (error, file) => {
-          const output = outputNames
-            .filter(outputName => !file.split('\n').includes(outputName))
-            .reduce((accumulator, outputName) => accumulator.concat(`${outputName}\n`), '');
+        if (fileMapByKey) {
+          const fileName = fileMapByKey.outputFile;
+          const outputNames = assetsMap[assetKey];
 
-          fs.writeFile(path.resolve(fileName), file.concat(output));
-        });
+          fs.readFile(path.resolve(fileName), 'utf8', (error, file) => {
+            const output = outputNames
+              .filter(outputName => !file.split('\n').includes(outputName))
+              .reduce((accumulator, outputName) => accumulator.concat(`${outputName}\n`), '');
+
+            fs.writeFile(path.resolve(fileName), file.concat(output));
+          });
+        }
       });
 
       callback();
