@@ -11,9 +11,7 @@ class PreventEmitPlugin {
   apply(compiler) {
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('chunk-asset', (chunk, fileName) => {
-        if (this.cachedNames.includes(fileName)) {
-          delete compilation.assets[fileName];
-        } else if (
+        if (
           fileName !== constants.extractTextSignature &&
           this.checkFilePatternMatch(chunk.entryModule.rawRequest)
         ) {
