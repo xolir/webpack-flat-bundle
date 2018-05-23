@@ -32,13 +32,17 @@ class moduleSerializer {
         if (fileMapByKey) {
           const fileName = fileMapByKey.outputFile;
           const outputNames = assetsMap[assetKey];
+          const diskFile = path.resolve(fileName);
 
-          fs.readFile(path.resolve(fileName), 'utf8', (error, file) => {
-            const output = outputNames
-              .filter(outputName => !file.split('\n').includes(outputName))
-              .reduce((accumulator, outputName) => accumulator.concat(`${outputName}\n`), '');
-
-            fs.writeFile(path.resolve(fileName), file.concat(output));
+          fs.exists(diskFile, (fileExists) => {
+            if (!fileExists) fs.writeFile(diskFile); 
+            fs.readFile(path.resolve(fileName), 'utf8', (error, file) => {
+              const output = outputNames
+                .filter(outputName => !file.split('\n').includes(outputName))
+                .reduce((accumulator, outputName) => accumulator.concat(`${outputName}\n`), '');
+    
+              fs.writeFile(path.resolve(fileName), file.concat(output));
+            });
           });
         }
       });
