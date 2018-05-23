@@ -4,7 +4,8 @@ const path = require('path');
 const fileNameGenerator = (file, relativeRoot) =>
   path
     .resolve(file)
-    .replace(`${path.resolve(relativeRoot)}/`, '')
+    .replace(`${path.resolve(relativeRoot)}`, '')
+    .substr(1)
     .split('.')
     .shift();
 
