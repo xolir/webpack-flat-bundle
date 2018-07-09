@@ -1,7 +1,3 @@
-const constants = {
-  extractTextSignature: 'extract-text-webpack-plugin-output-filename',
-};
-
 class PreventEmitPlugin {
   constructor(filePatterns) {
     this.filePatterns = filePatterns;
@@ -12,8 +8,7 @@ class PreventEmitPlugin {
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('chunk-asset', (chunk, fileName) => {
         if (
-          fileName !== constants.extractTextSignature &&
-          this.checkFilePatternMatch(chunk.entryModule.rawRequest)
+          fileName.includes('.js') && chunk.entryModule.rawRequest.includes('.scss')
         ) {
           this.addToCache(fileName);
         }
