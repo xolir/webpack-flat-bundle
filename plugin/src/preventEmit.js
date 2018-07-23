@@ -8,7 +8,7 @@ class PreventEmitPlugin {
     compiler.plugin('compilation', (compilation) => {
       compilation.plugin('chunk-asset', (chunk, fileName) => {
         if (
-          fileName.includes('.js') && chunk.entryModule.rawRequest.includes('.scss')
+          fileName.includes('.js') && chunk.entryModule.rawRequest && chunk.entryModule.rawRequest.includes('.scss')
         ) {
           this.addToCache(fileName);
         }
