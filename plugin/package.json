@@ -12,8 +12,7 @@
   },
   "author": "Mikołaj Kozakiewicz",
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "jest": "^21.1.0",
     "flow": "^0.2.3",
