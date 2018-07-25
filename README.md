@@ -24,7 +24,6 @@ npm install webpack-flat-bundle
 ##### Import plugin and helper method.
 ```
 const { globEntries, preventEmitPlugin } = require('webpack-flat-bundle');
-
 ```
 
 ##### Add following to your config
