@@ -1,3 +1,7 @@
+const PLUGIN_NAME = 'webpack-flat-bundle';
+
+const sassPatern = /\.s?(c|a)ss?$/;
+const jsPattern = /\.jsx?$/;
 class PreventEmitPlugin {
   constructor(filePatterns) {
     this.filePatterns = filePatterns;
@@ -5,15 +9,17 @@ class PreventEmitPlugin {
   }
 
   apply(compiler) {
-    compiler.plugin('compilation', (compilation) => {
-      compilation.plugin('chunk-asset', (chunk, fileName) => {
+    compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
+      compilation.hooks.chunkAsset.tap(PLUGIN_NAME, (chunk, fileName) => {
         if (
-          fileName.includes('.js') && chunk.entryModule.rawRequest && chunk.entryModule.rawRequest.includes('.scss')
+          chunk.entryModule.rawRequest &&
+          sassPatern.test(chunk.entryModule.rawRequest) && 
+          jsPattern.test(fileName)
         ) {
           this.addToCache(fileName);
         }
       });
-      compilation.plugin('after-optimize-assets', () => {
+      compilation.hooks.afterOptimizeAssets.tap(PLUGIN_NAME, () => {
         this.cachedNames.map((fileName) => {
           delete compilation.assets[fileName];
           delete compilation.assets[`${fileName}.map`];
@@ -28,7 +34,9 @@ class PreventEmitPlugin {
   }
 
   checkFilePatternMatch(fileRequest) {
-    return Object.values(this.filePatterns).find(pattern => pattern === fileRequest || false);
+    return Object
+      .values(this.filePatterns)
+      .find(pattern => pattern === fileRequest || false);
   }
 }
 
