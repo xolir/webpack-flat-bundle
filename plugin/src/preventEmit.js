@@ -12,8 +12,9 @@ class PreventEmitPlugin {
     compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
       compilation.hooks.chunkAsset.tap(PLUGIN_NAME, (chunk, fileName) => {
         if (
+          chunk.entryModule &&
           chunk.entryModule.rawRequest &&
-          sassPatern.test(chunk.entryModule.rawRequest) && 
+          sassPatern.test(chunk.entryModule.rawRequest) &&
           jsPattern.test(fileName)
         ) {
           this.addToCache(fileName);
