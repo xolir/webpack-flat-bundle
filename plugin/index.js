@@ -1,7 +1,7 @@
 const globEntries = require('./src/globEntries');
-const preventEmitPlugin = require('./src/preventEmit');
+const PreventEmitPlugin = require('./src/preventEmit');
 
 module.exports = {
   globEntries,
-  preventEmitPlugin,
+  PreventEmitPlugin,
 };
